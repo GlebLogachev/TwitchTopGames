@@ -17,7 +17,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        val db = AppDatabase.instance(applicationContext)
+        val db = AppDatabase.getDatabase(applicationContext)
         val dao: GamesDao = db.getTopGamesDao()
         appRepository = TopGamesRepositoryImpl(
             apiInterface = TopGamesApi.create(HttpClientFactory.createHttpClient()),
