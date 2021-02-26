@@ -17,9 +17,12 @@ class TopGamesRepositoryImpl(
             .getTopGames()
             .map { gamesNW ->
                 val gamesDB = gamesNW.toDomain().map { it.toDB() }
-                dbInterface.updateDatabaseData(gamesDB)
+                return@map gamesDB
             }
-            .flatMap {
+            .doOnSuccess {
+                dbInterface.updateDatabaseData(it)
+            }
+            .onErrorResumeNext {
                 dbInterface.getAllGames()
             }
     }
