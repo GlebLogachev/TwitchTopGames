@@ -8,19 +8,24 @@ import androidx.room.RoomDatabase
 @Database(entities = [GameDB::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getTopGamesDao(): GamesDao
+
     companion object {
         @Volatile
-        private var instance: AppDatabase? = null
-         fun instance (context: Context) = instance ?: synchronized(this) {
-            instance ?: buildDatabase(context)
-                .also {
-                    instance = it
-                }
+        private var INSTANCE: AppDatabase? = null
+        fun getDatabase(context: Context): AppDatabase {
+            val tempInstance = INSTANCE
+            if (tempInstance != null) {
+                return tempInstance
+            }
+            synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "topGamesDatabase"
+                ).build()
+                INSTANCE = instance
+                return instance
+            }
         }
-        private fun buildDatabase(context: Context) = Room.databaseBuilder(
-            context.applicationContext,
-            AppDatabase::class.java,
-            "topGamesDatabase"
-        ).build()
     }
 }
