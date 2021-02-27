@@ -10,7 +10,9 @@ import com.bumptech.glide.Glide
 import com.glogachev.twitchtopgames.R
 import com.glogachev.twitchtopgames.data.db.GameDB
 
-class TopGamesAdapter(private val gameDB: List<GameDB>) : RecyclerView.Adapter<ViewHolder>() {
+class TopGamesAdapter() : RecyclerView.Adapter<ViewHolder>() {
+    private var gameDB: List<GameDB> = emptyList()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.rv_top_games_items, parent, false)
@@ -25,7 +27,13 @@ class TopGamesAdapter(private val gameDB: List<GameDB>) : RecyclerView.Adapter<V
     override fun getItemCount(): Int {
         return gameDB.size
     }
+
+    fun setGameList(gameList: List<GameDB>) {
+        gameDB = gameList
+        notifyDataSetChanged()
+    }
 }
+
 
 class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
