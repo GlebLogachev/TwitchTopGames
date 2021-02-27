@@ -4,4 +4,6 @@
     <string name="game_name">Game name:</string>
     <string name="viewers">viewers:</string>
     <string name="channels">channels:</string>
+    <string name="empty_list">Список пуст</string>
+    <string name="network_problems">Ошибка загрузки</string>
 </resources>
