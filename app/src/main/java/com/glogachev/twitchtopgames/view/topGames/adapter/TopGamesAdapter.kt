@@ -1,22 +1,19 @@
 package com.glogachev.twitchtopgames.view.topGames.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.glogachev.twitchtopgames.R
 import com.glogachev.twitchtopgames.data.db.GameDB
+import com.glogachev.twitchtopgames.databinding.RvTopGamesItemsBinding
 
 class TopGamesAdapter() : RecyclerView.Adapter<ViewHolder>() {
     private var gameDB: List<GameDB> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.rv_top_games_items, parent, false)
-        return ViewHolder(view)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = RvTopGamesItemsBinding.inflate(layoutInflater, parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -34,19 +31,13 @@ class TopGamesAdapter() : RecyclerView.Adapter<ViewHolder>() {
     }
 }
 
-
-class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class ViewHolder(private val gamesBinding: RvTopGamesItemsBinding) :
+    RecyclerView.ViewHolder(gamesBinding.root) {
 
     fun bind(item: GameDB) {
-        val gameName = itemView.findViewById<TextView>(R.id.rv_name_tv)
-        val gameViewers = itemView.findViewById<TextView>(R.id.rv_viewers_tv)
-        val gameChannels = itemView.findViewById<TextView>(R.id.rv_channels_tv)
-        val gameImage = itemView.findViewById<ImageView>(R.id.rv_image)
-
-        gameName.text = item.gameName
-        gameViewers.text = item.viewers
-        gameChannels.text = item.channels
-
-        Glide.with(itemView.context).load(item.image).into(gameImage)
+        gamesBinding.rvNameTv.text = item.gameName
+        gamesBinding.rvViewersTv.text = item.viewers
+        gamesBinding.rvChannelsTv.text = item.channels
+        Glide.with(itemView.context).load(item.image).into(gamesBinding.rvImage)
     }
 }
