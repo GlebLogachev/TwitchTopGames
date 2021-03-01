@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.glogachev.twitchtopgames.data.db.GameDB
 import com.glogachev.twitchtopgames.databinding.RvTopGamesItemsBinding
 
-class TopGamesAdapter : ListAdapter<GameDB, GamesViewHolder>(TopGamesDiffCallback()) {
+class TopGamesAdapter : ListAdapter<GameDB, GamesViewHolder>(topGamesDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GamesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -33,8 +33,7 @@ class GamesViewHolder(private val gamesBinding: RvTopGamesItemsBinding) :
     }
 }
 
-class TopGamesDiffCallback :
-    DiffUtil.ItemCallback<GameDB>() {
+val topGamesDiffCallback = object :  DiffUtil.ItemCallback<GameDB>() {
     override fun areItemsTheSame(oldItem: GameDB, newItem: GameDB): Boolean {
         return oldItem.id == newItem.id
     }
