@@ -20,7 +20,7 @@ data class TopNW(
 
 data class GameItemsNW(
     @SerializedName("_id")
-    val id: String,
+    val id: Int,
     @SerializedName("box")
     val box: BoxItemsNW,
     @SerializedName("giantbomb_id")

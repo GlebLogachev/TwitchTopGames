@@ -20,6 +20,7 @@ internal fun TopGamesNW.toDomain(): List<Top> {
     }
 internal fun GameItemsNW.toDomain(): GameItems {
     return GameItems(
+        id = id,
         name = name,
         box = box.toDomain()
     )

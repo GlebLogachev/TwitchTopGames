@@ -6,6 +6,7 @@ data class Top(
     val game: GameItems
 )
 data class GameItems(
+    val id: Int,
     val box: BoxItems,
     val name: String
 )
