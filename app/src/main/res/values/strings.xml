@@ -6,4 +6,6 @@
     <string name="channels">channels:</string>
     <string name="empty_list">Список пуст</string>
     <string name="network_problems">Ошибка загрузки</string>
+    <string name="details_viewers">viewers: %1$s</string>
+    <string name="details_channels">channels: %1$s</string>
 </resources>

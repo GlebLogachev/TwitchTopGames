@@ -8,7 +8,7 @@
         android:id="@+id/topGamesFragment"
         android:name="com.glogachev.twitchtopgames.view.topGames.TopGamesFragment"
         android:label="fragment_top_games"
-        tools:layout="@layout/fragment_top_games" >
+        tools:layout="@layout/fragment_top_games">
         <action
             android:id="@+id/action_topGamesFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
@@ -17,5 +17,9 @@
         android:id="@+id/detailsFragment"
         android:name="com.glogachev.twitchtopgames.view.topGames.details.DetailsFragment"
         android:label="DetailsFragment"
-        tools:layout="@layout/fragment_details"/>
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="game_object"
+            app:argType="com.glogachev.twitchtopgames.data.db.GameDB" />
+    </fragment>
 </navigation>

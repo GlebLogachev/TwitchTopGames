@@ -1,7 +1,6 @@
 package com.glogachev.twitchtopgames.view.topGames
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,11 +64,10 @@ class TopGamesFragment : Fragment() {
 
     private fun setItemListener(): OnItemClickListener {
         return object : OnItemClickListener {
-            override fun onClick(id: Int) {
-                val action = TopGamesFragmentDirections.actionTopGamesFragmentToDetailsFragment()
+            override fun onClick(game: GameDB) {
+                val action =
+                    TopGamesFragmentDirections.actionTopGamesFragmentToDetailsFragment(gameObject = game)
                 findNavController().navigate(action)
-                Log.d("moon", "click click Fragment")
-                Log.d("moon", "$id")
             }
         }
     }

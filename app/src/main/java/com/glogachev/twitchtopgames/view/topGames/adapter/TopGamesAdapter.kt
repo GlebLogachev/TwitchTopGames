@@ -10,8 +10,9 @@ import com.glogachev.twitchtopgames.data.db.GameDB
 import com.glogachev.twitchtopgames.databinding.RvTopGamesItemsBinding
 
 interface OnItemClickListener {
-    fun onClick(id: Int)
+    fun onClick(game: GameDB)
 }
+
 class TopGamesAdapter : ListAdapter<GameDB, GamesViewHolder>(topGamesDiffCallback) {
     private lateinit var listener: OnItemClickListener
 
@@ -25,8 +26,8 @@ class TopGamesAdapter : ListAdapter<GameDB, GamesViewHolder>(topGamesDiffCallbac
         holder.bind(getItem(position), listener)
     }
 
-    fun setListener(listener: OnItemClickListener){
-       this.listener = listener
+    fun setListener(listener: OnItemClickListener) {
+        this.listener = listener
     }
 }
 
@@ -40,12 +41,12 @@ class GamesViewHolder(private val gamesBinding: RvTopGamesItemsBinding) :
         Glide.with(itemView.context).load(item.image).into(gamesBinding.rvImage)
 
         gamesBinding.gamesCardView.setOnClickListener {
-            listener.onClick(item.id)
+            listener.onClick(item)
         }
     }
 }
 
-val topGamesDiffCallback = object :  DiffUtil.ItemCallback<GameDB>() {
+val topGamesDiffCallback = object : DiffUtil.ItemCallback<GameDB>() {
     override fun areItemsTheSame(oldItem: GameDB, newItem: GameDB): Boolean {
         return oldItem.id == newItem.id
     }
