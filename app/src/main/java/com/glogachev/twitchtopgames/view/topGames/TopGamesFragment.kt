@@ -77,7 +77,7 @@ class TopGamesFragment : Fragment() {
         if (result.data.isNullOrEmpty()) {
             binding.emptyListTw.isVisible = true
         } else {
-            topGamesAdapter.setGameList(result.data)
+            topGamesAdapter.submitList(result.data)
             binding.emptyListTw.isVisible = false
         }
         binding.loadingPb.isVisible = false

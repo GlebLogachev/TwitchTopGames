@@ -1,52 +1,44 @@
 package com.glogachev.twitchtopgames.view.topGames.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.glogachev.twitchtopgames.R
 import com.glogachev.twitchtopgames.data.db.GameDB
+import com.glogachev.twitchtopgames.databinding.RvTopGamesItemsBinding
 
-class TopGamesAdapter() : RecyclerView.Adapter<ViewHolder>() {
-    private var gameDB: List<GameDB> = emptyList()
+class TopGamesAdapter : ListAdapter<GameDB, GamesViewHolder>(topGamesDiffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.rv_top_games_items, parent, false)
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GamesViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = RvTopGamesItemsBinding.inflate(layoutInflater, parent, false)
+        return GamesViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = gameDB[position]
-        holder.bind(item)
-    }
-
-    override fun getItemCount(): Int {
-        return gameDB.size
-    }
-
-    fun setGameList(gameList: List<GameDB>) {
-        gameDB = gameList
-        notifyDataSetChanged()
+    override fun onBindViewHolder(holder: GamesViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 }
 
-
-class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class GamesViewHolder(private val gamesBinding: RvTopGamesItemsBinding) :
+    RecyclerView.ViewHolder(gamesBinding.root) {
 
     fun bind(item: GameDB) {
-        val gameName = itemView.findViewById<TextView>(R.id.rv_name_tv)
-        val gameViewers = itemView.findViewById<TextView>(R.id.rv_viewers_tv)
-        val gameChannels = itemView.findViewById<TextView>(R.id.rv_channels_tv)
-        val gameImage = itemView.findViewById<ImageView>(R.id.rv_image)
+        gamesBinding.rvNameTv.text = item.gameName
+        gamesBinding.rvViewersTv.text = item.viewers
+        gamesBinding.rvChannelsTv.text = item.channels
+        Glide.with(itemView.context).load(item.image).into(gamesBinding.rvImage)
+    }
+}
 
-        gameName.text = item.gameName
-        gameViewers.text = item.viewers
-        gameChannels.text = item.channels
+val topGamesDiffCallback = object :  DiffUtil.ItemCallback<GameDB>() {
+    override fun areItemsTheSame(oldItem: GameDB, newItem: GameDB): Boolean {
+        return oldItem.id == newItem.id
+    }
 
-        Glide.with(itemView.context).load(item.image).into(gameImage)
+    override fun areContentsTheSame(oldItem: GameDB, newItem: GameDB): Boolean {
+        return oldItem == newItem
     }
 }
