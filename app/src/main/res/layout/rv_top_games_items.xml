@@ -5,18 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp">
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/games_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:elevation="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp">
+
             <ImageView
                 android:id="@+id/rv_image"
                 android:layout_width="64dp"
@@ -24,6 +28,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:background="@color/cardview_dark_background" />
+
             <TextView
                 android:id="@+id/rv_name_tv"
                 android:layout_width="wrap_content"
@@ -32,6 +37,7 @@
                 app:layout_constraintLeft_toRightOf="@id/rv_image"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Dota 2" />
+
             <TextView
                 android:id="@+id/static_rv_viewers_tv"
                 android:layout_width="wrap_content"
@@ -40,6 +46,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintLeft_toRightOf="@id/rv_image"
                 app:layout_constraintTop_toBottomOf="@id/rv_name_tv" />
+
             <TextView
                 android:id="@+id/rv_viewers_tv"
                 android:layout_width="wrap_content"
@@ -48,14 +55,16 @@
                 app:layout_constraintLeft_toRightOf="@id/static_rv_viewers_tv"
                 app:layout_constraintTop_toBottomOf="@id/rv_name_tv"
                 tools:text="1550" />
+
             <TextView
                 android:id="@+id/static_rv_channels_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/channels"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintLeft_toRightOf="@id/rv_image"
-                app:layout_constraintTop_toBottomOf="@id/static_rv_viewers_tv"
-                android:text="@string/channels" />
+                app:layout_constraintTop_toBottomOf="@id/static_rv_viewers_tv" />
+
             <TextView
                 android:id="@+id/rv_channels_tv"
                 android:layout_width="wrap_content"

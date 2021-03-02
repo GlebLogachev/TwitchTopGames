@@ -8,11 +8,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.glogachev.twitchtopgames.App
 import com.glogachev.twitchtopgames.data.db.GameDB
 import com.glogachev.twitchtopgames.databinding.FragmentTopGamesBinding
 import com.glogachev.twitchtopgames.domain.StoreResult
+import com.glogachev.twitchtopgames.view.topGames.adapter.OnItemClickListener
 import com.glogachev.twitchtopgames.view.topGames.adapter.TopGamesAdapter
 
 class TopGamesFragment : Fragment() {
@@ -43,6 +45,7 @@ class TopGamesFragment : Fragment() {
         binding.rvTopGames.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvTopGames.adapter = topGamesAdapter
         viewModel.getListOfGames()
+        topGamesAdapter.setListener(setItemListener())
         viewModel.listGamesState.observe(
             viewLifecycleOwner,
             Observer<StoreResult<List<GameDB>>> { result ->
@@ -57,6 +60,16 @@ class TopGamesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setItemListener(): OnItemClickListener {
+        return object : OnItemClickListener {
+            override fun onClick(game: GameDB) {
+                val action =
+                    TopGamesFragmentDirections.actionTopGamesFragmentToDetailsFragment(gameObject = game)
+                findNavController().navigate(action)
+            }
+        }
     }
 
     private fun sortFetchingData(result: StoreResult<List<GameDB>>?) {

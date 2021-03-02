@@ -32,6 +32,7 @@ internal fun BoxItemsNW.toDomain(): BoxItems {
 }
 internal fun Top.toDB(): GameDB {
     return GameDB (
+        id = game.id,
         gameName = game.name,
         image = game.box.large,
         viewers = viewers,
