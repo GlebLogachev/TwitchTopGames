@@ -6,11 +6,9 @@ import java.io.Serializable
 
 @Entity
 data class GameDB(
+    @PrimaryKey var id: Int,
     val gameName: String,
     val image: String,
     val viewers: String,
     val channels: String
-): Serializable {
-@PrimaryKey (autoGenerate = true)
-var id: Int = 0
-}
+): Serializable

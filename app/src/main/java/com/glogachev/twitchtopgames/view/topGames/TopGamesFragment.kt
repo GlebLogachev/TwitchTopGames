@@ -1,6 +1,7 @@
 package com.glogachev.twitchtopgames.view.topGames
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.glogachev.twitchtopgames.App
 import com.glogachev.twitchtopgames.data.db.GameDB
 import com.glogachev.twitchtopgames.databinding.FragmentTopGamesBinding
 import com.glogachev.twitchtopgames.domain.StoreResult
+import com.glogachev.twitchtopgames.view.topGames.adapter.OnItemClickListener
 import com.glogachev.twitchtopgames.view.topGames.adapter.TopGamesAdapter
 
 class TopGamesFragment : Fragment() {
@@ -43,6 +45,7 @@ class TopGamesFragment : Fragment() {
         binding.rvTopGames.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvTopGames.adapter = topGamesAdapter
         viewModel.getListOfGames()
+        topGamesAdapter.setListener(setItemListener())
         viewModel.listGamesState.observe(
             viewLifecycleOwner,
             Observer<StoreResult<List<GameDB>>> { result ->
@@ -57,6 +60,15 @@ class TopGamesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setItemListener(): OnItemClickListener {
+        return object : OnItemClickListener {
+            override fun onClick(id: Int) {
+                Log.d("moon", "click click Fragment")
+                Log.d("moon", "$id")
+            }
+        }
     }
 
     private fun sortFetchingData(result: StoreResult<List<GameDB>>?) {
