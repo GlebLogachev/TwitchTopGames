@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.glogachev.twitchtopgames.App
 import com.glogachev.twitchtopgames.data.db.GameDB
@@ -65,6 +66,8 @@ class TopGamesFragment : Fragment() {
     private fun setItemListener(): OnItemClickListener {
         return object : OnItemClickListener {
             override fun onClick(id: Int) {
+                val action = TopGamesFragmentDirections.actionTopGamesFragmentToDetailsFragment()
+                findNavController().navigate(action)
                 Log.d("moon", "click click Fragment")
                 Log.d("moon", "$id")
             }
