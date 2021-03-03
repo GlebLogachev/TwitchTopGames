@@ -11,9 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.glogachev.twitchtopgames.App
-import com.glogachev.twitchtopgames.data.db.GameDB
 import com.glogachev.twitchtopgames.databinding.FragmentTopGamesBinding
 import com.glogachev.twitchtopgames.domain.StoreResult
+import com.glogachev.twitchtopgames.domain.model.GameDomain
 import com.glogachev.twitchtopgames.view.topGames.adapter.OnItemClickListener
 import com.glogachev.twitchtopgames.view.topGames.adapter.TopGamesAdapter
 
@@ -45,10 +45,10 @@ class TopGamesFragment : Fragment() {
         binding.rvTopGames.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvTopGames.adapter = topGamesAdapter
         viewModel.getListOfGames()
-        topGamesAdapter.setListener(setItemListener())
+        topGamesAdapter.setListener(rvItemClickListener())
         viewModel.listGamesState.observe(
             viewLifecycleOwner,
-            Observer<StoreResult<List<GameDB>>> { result ->
+            Observer<StoreResult<List<GameDomain>>> { result ->
                 sortFetchingData(result)
             })
 
@@ -62,9 +62,9 @@ class TopGamesFragment : Fragment() {
         _binding = null
     }
 
-    private fun setItemListener(): OnItemClickListener {
+    private fun rvItemClickListener(): OnItemClickListener {
         return object : OnItemClickListener {
-            override fun onClick(game: GameDB) {
+            override fun onClick(game: GameDomain) {
                 val action =
                     TopGamesFragmentDirections.actionTopGamesFragmentToDetailsFragment(gameObject = game)
                 findNavController().navigate(action)
@@ -72,7 +72,7 @@ class TopGamesFragment : Fragment() {
         }
     }
 
-    private fun sortFetchingData(result: StoreResult<List<GameDB>>?) {
+    private fun sortFetchingData(result: StoreResult<List<GameDomain>>?) {
         when (result) {
             is StoreResult.SuccessResult -> {
                 setSuccessState(result)
@@ -86,7 +86,7 @@ class TopGamesFragment : Fragment() {
         }
     }
 
-    private fun setSuccessState(result: StoreResult.SuccessResult<List<GameDB>>) {
+    private fun setSuccessState(result: StoreResult.SuccessResult<List<GameDomain>>) {
         if (result.data.isNullOrEmpty()) {
             binding.emptyListTw.isVisible = true
         } else {

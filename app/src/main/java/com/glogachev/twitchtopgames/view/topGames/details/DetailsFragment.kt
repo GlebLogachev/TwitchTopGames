@@ -8,13 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.glogachev.twitchtopgames.R
-import com.glogachev.twitchtopgames.data.db.GameDB
 import com.glogachev.twitchtopgames.databinding.FragmentDetailsBinding
+import com.glogachev.twitchtopgames.domain.model.GameDomain
 
 class DetailsFragment : Fragment() {
 
     private val args by navArgs<DetailsFragmentArgs>()
-    private lateinit var game: GameDB
+    private lateinit var game: GameDomain
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding: FragmentDetailsBinding
