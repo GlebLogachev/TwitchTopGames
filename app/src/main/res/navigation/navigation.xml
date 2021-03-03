@@ -20,6 +20,6 @@
         tools:layout="@layout/fragment_details">
         <argument
             android:name="game_object"
-            app:argType="com.glogachev.twitchtopgames.data.db.GameDB" />
+            app:argType="com.glogachev.twitchtopgames.domain.model.GameDomain" />
     </fragment>
 </navigation>

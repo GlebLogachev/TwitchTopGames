@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.glogachev.twitchtopgames.data.db.GameDB
 import com.glogachev.twitchtopgames.databinding.RvTopGamesItemsBinding
+import com.glogachev.twitchtopgames.domain.model.GameDomain
 
 interface OnItemClickListener {
-    fun onClick(game: GameDB)
+    fun onClick(game: GameDomain)
 }
 
-class TopGamesAdapter : ListAdapter<GameDB, GamesViewHolder>(topGamesDiffCallback) {
+class TopGamesAdapter : ListAdapter<GameDomain, GamesViewHolder>(topGamesDiffCallback) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GamesViewHolder {
@@ -34,7 +34,7 @@ class TopGamesAdapter : ListAdapter<GameDB, GamesViewHolder>(topGamesDiffCallbac
 class GamesViewHolder(private val gamesBinding: RvTopGamesItemsBinding) :
     RecyclerView.ViewHolder(gamesBinding.root) {
 
-    fun bind(item: GameDB, listener: OnItemClickListener) {
+    fun bind(item: GameDomain, listener: OnItemClickListener) {
         gamesBinding.rvNameTv.text = item.gameName
         gamesBinding.rvViewersTv.text = item.viewers
         gamesBinding.rvChannelsTv.text = item.channels
@@ -46,12 +46,12 @@ class GamesViewHolder(private val gamesBinding: RvTopGamesItemsBinding) :
     }
 }
 
-val topGamesDiffCallback = object : DiffUtil.ItemCallback<GameDB>() {
-    override fun areItemsTheSame(oldItem: GameDB, newItem: GameDB): Boolean {
+val topGamesDiffCallback = object : DiffUtil.ItemCallback<GameDomain>() {
+    override fun areItemsTheSame(oldItem: GameDomain, newItem: GameDomain): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: GameDB, newItem: GameDB): Boolean {
+    override fun areContentsTheSame(oldItem: GameDomain, newItem: GameDomain): Boolean {
         return oldItem == newItem
     }
 }

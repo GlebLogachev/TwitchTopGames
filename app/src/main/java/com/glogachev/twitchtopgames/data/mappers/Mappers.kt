@@ -1,41 +1,39 @@
 package com.glogachev.twitchtopgames.data.mappers
 
 import com.glogachev.twitchtopgames.data.db.GameDB
-import com.glogachev.twitchtopgames.data.model.BoxItemsNW
-import com.glogachev.twitchtopgames.data.model.GameItemsNW
 import com.glogachev.twitchtopgames.data.model.TopGamesNW
-import com.glogachev.twitchtopgames.domain.model.BoxItems
-import com.glogachev.twitchtopgames.domain.model.GameItems
-import com.glogachev.twitchtopgames.domain.model.Top
+import com.glogachev.twitchtopgames.domain.model.GameDomain
 
 
-internal fun TopGamesNW.toDomain(): List<Top> {
-    return top.map { item ->
-        Top(
-            channels = item.channels,
-            viewers = item.viewers,
-            game = item.game.toDomain()
-             )
-           }
+internal fun TopGamesNW.toDB(): List<GameDB> {
+    return top.map {
+        GameDB(
+            id = it.game.id,
+            viewers = it.viewers,
+            channels = it.channels,
+            gameName = it.game.name,
+            image = it.game.box.large
+        )
     }
-internal fun GameItemsNW.toDomain(): GameItems {
-    return GameItems(
+}
+internal fun TopGamesNW.toDomain(): List<GameDomain> {
+    return top.map {
+        GameDomain(
+            id = it.game.id,
+            channels = it.channels,
+            viewers = it.viewers,
+            gameName = it.game.name,
+            image = it.game.box.large
+        )
+    }
+}
+
+internal fun GameDB.toDomain(): GameDomain {
+    return GameDomain(
         id = id,
-        name = name,
-        box = box.toDomain()
-    )
-}
-internal fun BoxItemsNW.toDomain(): BoxItems {
-    return BoxItems(
-        large = large
-    )
-}
-internal fun Top.toDB(): GameDB {
-    return GameDB (
-        id = game.id,
-        gameName = game.name,
-        image = game.box.large,
+        channels = channels,
         viewers = viewers,
-        channels = channels
+        image = image,
+        gameName = gameName
     )
 }
