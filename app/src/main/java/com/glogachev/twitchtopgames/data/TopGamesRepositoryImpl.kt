@@ -16,25 +16,32 @@ class TopGamesRepositoryImpl(
     override fun getTopGames(): Single<StoreResult<List<GameDB>>> {
         return apiInterface
             .getTopGames()
-            .map { gamesNW ->
-                gamesNW.toDomain().map { it.toDB() }
+            .map { result ->
+                result.toDomain().map { it.toDB() }
             }
-            .map<StoreResult<List<GameDB>>> { gamesNW ->
-                dbInterface.updateDatabaseData(gamesNW)
-                return@map StoreResult.SuccessResult(gamesNW)
+            .map {
+                dbInterface.updateDatabaseData(it)
+                it
             }
             .onErrorResumeNext {
                 dbInterface.getAllGames()
                     .map { gamesDB ->
                         if (gamesDB.isNullOrEmpty()) {
-                            StoreResult.Error(it)
+                            throw it
                         } else {
-                            StoreResult.SuccessResult(gamesDB)
+                            gamesDB
                         }
                     }
             }
+            .toNetworkResult()
+    }
+
+    private fun <T : Any> Single<T>.toNetworkResult(): Single<StoreResult<T>> {
+        return map<StoreResult<T>> { result ->
+            StoreResult.SuccessResult(result)
+        }
             .onErrorReturn {
-                return@onErrorReturn StoreResult.Error(it)
+                StoreResult.Error(it)
             }
     }
 }

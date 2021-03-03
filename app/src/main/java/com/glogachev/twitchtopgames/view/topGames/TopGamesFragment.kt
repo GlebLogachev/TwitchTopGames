@@ -45,7 +45,7 @@ class TopGamesFragment : Fragment() {
         binding.rvTopGames.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvTopGames.adapter = topGamesAdapter
         viewModel.getListOfGames()
-        topGamesAdapter.setListener(setItemListener())
+        topGamesAdapter.setListener(rvItemClickListener())
         viewModel.listGamesState.observe(
             viewLifecycleOwner,
             Observer<StoreResult<List<GameDB>>> { result ->
@@ -62,7 +62,7 @@ class TopGamesFragment : Fragment() {
         _binding = null
     }
 
-    private fun setItemListener(): OnItemClickListener {
+    private fun rvItemClickListener(): OnItemClickListener {
         return object : OnItemClickListener {
             override fun onClick(game: GameDB) {
                 val action =

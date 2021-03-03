@@ -4,10 +4,15 @@ plugins {
 }
 apply plugin: "kotlin-kapt"
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: "org.jetbrains.kotlin.android.extensions"
+
 
 android {
     viewBinding {
         enabled = true
+    }
+    androidExtensions {
+        experimental = true
     }
     compileSdkVersion 29
     buildToolsVersion "30.0.2"
