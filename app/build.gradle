@@ -90,4 +90,6 @@ dependencies {
     //swipeRefreshLayout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayout_version"
 
+    //Timber
+    implementation "com.jakewharton.timber:timber:$timber_version"
 }
