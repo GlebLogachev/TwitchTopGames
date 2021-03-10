@@ -3,10 +3,11 @@ package com.glogachev.twitchtopgames
 import android.app.Application
 import com.glogachev.twitchtopgames.data.HttpClientFactory
 import com.glogachev.twitchtopgames.data.TopGamesRepositoryImpl
-import com.glogachev.twitchtopgames.data.db.GamesDao
 import com.glogachev.twitchtopgames.data.db.AppDatabase
+import com.glogachev.twitchtopgames.data.db.GamesDao
 import com.glogachev.twitchtopgames.data.retrofit.TopGamesApi
 import com.glogachev.twitchtopgames.domain.TopGamesRepository
+import timber.log.Timber
 
 class App : Application() {
 
@@ -17,6 +18,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        Timber.plant(Timber.DebugTree())
         val db = AppDatabase.getDatabase(applicationContext)
         val dao: GamesDao = db.getTopGamesDao()
         appRepository = TopGamesRepositoryImpl(

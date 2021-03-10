@@ -27,7 +27,8 @@ class TopGamesRepositoryImpl(
                         if (gamesDB.isNullOrEmpty()) {
                             throw it
                         } else {
-                            gamesDB.map { it.toDomain() }
+                            val a = gamesDB.map { it.toDomain() }
+                            return@map a
                         }
                     }
             }

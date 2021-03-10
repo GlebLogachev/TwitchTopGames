@@ -78,7 +78,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rx_java_version"
 
     // RXJavaRetrofit
-    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$retrofit2_rxjava2_adapter_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rxretrofit_version"
 
     // RXAndroid
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
@@ -90,4 +90,6 @@ dependencies {
     //swipeRefreshLayout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayout_version"
 
+    //Timber
+    implementation "com.jakewharton.timber:timber:$timber_version"
 }

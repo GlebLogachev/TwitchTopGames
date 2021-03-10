@@ -1,8 +1,8 @@
 package com.glogachev.twitchtopgames.data.retrofit
 
 import com.glogachev.twitchtopgames.data.model.TopGamesNW
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -22,7 +22,8 @@ interface TopGamesApi {
         var BASE_URL = "https://api.twitch.tv/"
         fun create(okHttpClient: OkHttpClient): TopGamesApi {
             val retrofit = Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                //.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxAdapterFactory.createWithScheduler(Schedulers.io()))
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL)
                 .client(okHttpClient)
@@ -31,3 +32,7 @@ interface TopGamesApi {
         }
     }
 }
+
+class DomainThrowable(
+    val errorModelNW: ErrorModelNW
+) : Throwable()
