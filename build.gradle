@@ -38,4 +38,5 @@ ext {
     glide_compiler_version = "4.11.0"
     swiperefreshlayout_version = "1.1.0"
     timber_version = "4.7.1"
+    rxretrofit_version = "2.5.0"
 }

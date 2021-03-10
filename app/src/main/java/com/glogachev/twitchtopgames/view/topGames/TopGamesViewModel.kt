@@ -28,7 +28,7 @@ class TopGamesViewModel(private val repository: TopGamesRepository) : ViewModel(
             .subscribe { gamesNetworkResult ->
                 (gamesNetworkResult as? StoreResult.Error)?.let {
                     (it.error as? DomainThrowable)?.let { error ->
-                        Timber.d(error.errorModelNW.toString())
+                        Timber.d("testRequest ${error.errorModelNW}")
                     }
                 }
                 _listGamesState.value = gamesNetworkResult
