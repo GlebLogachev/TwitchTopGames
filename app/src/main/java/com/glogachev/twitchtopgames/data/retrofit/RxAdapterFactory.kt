@@ -85,7 +85,7 @@ fun errorConverter(retrofit: Retrofit, error: Throwable, request: Request): Thro
             retrofit.responseBodyConverter<ErrorModelNW>(ErrorModelNW::class.java, emptyArray())
         errorBody?.let {
             converter.convert(it)?.let { errorModel ->
-                return DomainThrowable(errorModel)
+                return NetworkThrowable(errorModelNW = errorModel)
             }
         }
     }
