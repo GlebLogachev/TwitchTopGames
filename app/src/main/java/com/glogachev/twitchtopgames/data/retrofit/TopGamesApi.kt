@@ -15,7 +15,7 @@ interface TopGamesApi {
         "Accept: application/vnd.twitchtv.v5+json",
         "Client-ID: 0mbng65k95r72we0j1ii1uf02cssrs"
     )
-    @GET("kraken/games/top")
+    @GET("kraken/games/top?limit=50")
     fun getTopGames(): Single<TopGamesNW>
 
     companion object {
@@ -33,6 +33,6 @@ interface TopGamesApi {
     }
 }
 
-class DomainThrowable(
+class NetworkThrowable(
     val errorModelNW: ErrorModelNW
 ) : Throwable()

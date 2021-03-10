@@ -3,7 +3,6 @@ package com.glogachev.twitchtopgames.view.topGames
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.glogachev.twitchtopgames.data.retrofit.DomainThrowable
 import com.glogachev.twitchtopgames.domain.StoreResult
 import com.glogachev.twitchtopgames.domain.TopGamesRepository
 import com.glogachev.twitchtopgames.domain.model.GameDomain
@@ -26,11 +25,7 @@ class TopGamesViewModel(private val repository: TopGamesRepository) : ViewModel(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { gamesNetworkResult ->
-                (gamesNetworkResult as? StoreResult.Error)?.let {
-                    (it.error as? DomainThrowable)?.let { error ->
-                        Timber.d("testRequest ${error.errorModelNW}")
-                    }
-                }
+                Timber.d(gamesNetworkResult.toString())
                 _listGamesState.value = gamesNetworkResult
             }
     }
