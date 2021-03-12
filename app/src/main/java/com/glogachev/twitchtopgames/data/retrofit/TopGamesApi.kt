@@ -8,6 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Query
 
 interface TopGamesApi {
     @Headers(
@@ -15,8 +16,10 @@ interface TopGamesApi {
         "Accept: application/vnd.twitchtv.v5+json",
         "Client-ID: 0mbng65k95r72we0j1ii1uf02cssrs"
     )
-    @GET("kraken/games/top?limit=50")
-    fun getTopGames(): Single<TopGamesNW>
+    @GET("kraken/games/top")
+    fun getTopGames(
+        @Query("limit") limit: String
+    ): Single<TopGamesNW>
 
     companion object {
         var BASE_URL = "https://api.twitch.tv/"

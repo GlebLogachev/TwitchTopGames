@@ -21,11 +21,21 @@ class TopGamesViewModel(private val repository: TopGamesRepository) : ViewModel(
 
     fun getListOfGames() {
         disposable = repository
-            .getTopGames()
+            .getFirstGamePage()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { gamesNetworkResult ->
                 Timber.d(gamesNetworkResult.toString())
+                _listGamesState.value = gamesNetworkResult
+            }
+    }
+
+    fun getNextGamesPage() {
+        disposable = repository
+            .getNextGamesPage()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { gamesNetworkResult ->
                 _listGamesState.value = gamesNetworkResult
             }
     }

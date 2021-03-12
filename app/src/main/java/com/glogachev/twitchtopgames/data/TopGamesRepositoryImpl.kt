@@ -15,27 +15,35 @@ class TopGamesRepositoryImpl(
     private val apiInterface: TopGamesApi,
     private val dbInterface: GamesDao
 ) : TopGamesRepository {
-    override fun getTopGames(): Single<StoreResult<List<GameDomain>>> {
 
-        return apiInterface
-            .getTopGames()
-            .map { gamesNW ->
-                dbInterface.updateDatabaseData(gamesNW.toDB())
-                gamesNW.toDomain()
-            }
-            .onErrorResumeNext {
-                dbInterface.getAllGames()
-                    .map { gamesDB ->
-                        if (gamesDB.isNullOrEmpty()) {
-                            throw it
-                        } else {
-                            val a = gamesDB.map { it.toDomain() }
-                            return@map a
-                        }
-                    }
-            }
-            .toNetworkResult()
+    private var limit = 10
+
+    override fun getFirstGamePage(): Single<StoreResult<List<GameDomain>>> =
+        getTopGames()
+
+    override fun getNextGamesPage(): Single<StoreResult<List<GameDomain>>> {
+        limit += 10
+        return getTopGames()
     }
+
+    private fun getTopGames() = apiInterface
+        .getTopGames(limit = limit.toString())
+        .map { gamesNW ->
+            dbInterface.updateDatabaseData(gamesNW.toDB())
+            gamesNW.toDomain()
+        }
+        .onErrorResumeNext {
+            dbInterface.getAllGames()
+                .map { gamesDB ->
+                    if (gamesDB.isNullOrEmpty()) {
+                        throw it
+                    } else {
+                        val a = gamesDB.map { it.toDomain() }
+                        return@map a
+                    }
+                }
+        }
+        .toNetworkResult()
 
     private fun <T : Any> Single<T>.toNetworkResult(): Single<StoreResult<T>> {
         return map<StoreResult<T>> { result ->
