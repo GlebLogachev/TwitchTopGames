@@ -6,9 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.glogachev.twitchtopgames.domain.StoreResult
 import com.glogachev.twitchtopgames.domain.TopGamesRepository
 import com.glogachev.twitchtopgames.domain.model.GameDomain
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.glogachev.twitchtopgames.generics.schedule
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 class TopGamesViewModel(private val repository: TopGamesRepository) : ViewModel() {
@@ -22,8 +21,7 @@ class TopGamesViewModel(private val repository: TopGamesRepository) : ViewModel(
     fun getListOfGames() {
         disposable = repository
             .getFirstGamePage()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .schedule()
             .subscribe { gamesNetworkResult ->
                 Timber.d(gamesNetworkResult.toString())
                 _listGamesState.value = gamesNetworkResult
@@ -33,8 +31,7 @@ class TopGamesViewModel(private val repository: TopGamesRepository) : ViewModel(
     fun getNextGamesPage() {
         disposable = repository
             .getNextGamesPage()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .schedule()
             .subscribe { gamesNetworkResult ->
                 _listGamesState.value = gamesNetworkResult
             }
