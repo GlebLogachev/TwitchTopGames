@@ -63,19 +63,11 @@ class TopGamesFragment : Fragment() {
             if (!isInternetAvailable(requireContext()))
                 showSnackbar()
         }
-        binding.nestedScrollView.setOnScrollChangeListener(object :
-            NestedScrollView.OnScrollChangeListener {
-            override fun onScrollChange(
-                v: NestedScrollView?,
-                scrollX: Int,
-                scrollY: Int,
-                oldScrollX: Int,
-                oldScrollY: Int
-            ) {
-                if (scrollY == v?.getChildAt(0)!!.measuredHeight - v.measuredHeight) {
-                    binding.rvProgressBar.isVisible = true
-                    viewModel.getNextGamesPage()
-                }
+        binding.nestedScrollView.setOnScrollChangeListener(
+            NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if (scrollY == v?.getChildAt(0)!!.measuredHeight - v.measuredHeight) {
+                binding.rvProgressBar.isVisible = true
+                viewModel.getNextGamesPage()
             }
         })
     }
