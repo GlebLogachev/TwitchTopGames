@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -62,6 +63,13 @@ class TopGamesFragment : Fragment() {
             if (!isInternetAvailable(requireContext()))
                 showSnackbar()
         }
+        binding.nestedScrollView.setOnScrollChangeListener(
+            NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if (scrollY == v?.getChildAt(0)!!.measuredHeight - v.measuredHeight) {
+                binding.rvProgressBar.isVisible = true
+                viewModel.getNextGamesPage()
+            }
+        })
     }
 
     override fun onDestroyView() {
