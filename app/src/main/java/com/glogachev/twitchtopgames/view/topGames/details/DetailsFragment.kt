@@ -35,8 +35,9 @@ class DetailsFragment : Fragment() {
 
         Glide.with(this).load(game.image).into(binding.detailsImage)
         binding.detailsGameName.text = game.gameName
+        binding.detailsChannels.text =
+            getString(R.string.details_channels, game.channels)
         binding.detailsViewers.text = getString(R.string.details_viewers, game.viewers)
-        binding.detailsChannels.text = getString(R.string.details_channels, game.channels)
     }
 
     override fun onDestroyView() {

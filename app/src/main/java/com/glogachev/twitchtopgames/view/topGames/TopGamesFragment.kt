@@ -65,11 +65,11 @@ class TopGamesFragment : Fragment() {
         }
         binding.nestedScrollView.setOnScrollChangeListener(
             NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            if (scrollY == v?.getChildAt(0)!!.measuredHeight - v.measuredHeight) {
-                binding.rvProgressBar.isVisible = true
-                viewModel.getNextGamesPage()
-            }
-        })
+                if (scrollY == v?.getChildAt(0)!!.measuredHeight - v.measuredHeight) {
+                    binding.rvProgressBar.isVisible = true
+                    viewModel.getNextGamesPage()
+                }
+            })
     }
 
     override fun onDestroyView() {
