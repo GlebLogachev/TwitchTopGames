@@ -1,4 +1,4 @@
-package com.glogachev.twitchtopgames.view.topGames
+package com.glogachev.twitchtopgames.view.topGames.main
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -19,8 +19,8 @@ import com.glogachev.twitchtopgames.App
 import com.glogachev.twitchtopgames.databinding.FragmentTopGamesBinding
 import com.glogachev.twitchtopgames.domain.StoreResult
 import com.glogachev.twitchtopgames.domain.model.GameDomain
-import com.glogachev.twitchtopgames.view.topGames.adapter.OnItemClickListener
-import com.glogachev.twitchtopgames.view.topGames.adapter.TopGamesAdapter
+import com.glogachev.twitchtopgames.view.topGames.main.adapter.OnItemClickListener
+import com.glogachev.twitchtopgames.view.topGames.main.adapter.TopGamesAdapter
 import com.google.android.material.snackbar.Snackbar
 
 class TopGamesFragment : Fragment() {

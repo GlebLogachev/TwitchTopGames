@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/topGamesFragment">
+    app:startDestination="@id/nav_top_games_fragment">
     <fragment
-        android:id="@+id/topGamesFragment"
-        android:name="com.glogachev.twitchtopgames.view.topGames.TopGamesFragment"
+        android:id="@+id/nav_top_games_fragment"
+        android:name="com.glogachev.twitchtopgames.view.topGames.main.TopGamesFragment"
         android:label="Games"
         tools:layout="@layout/fragment_top_games">
         <action
             android:id="@+id/action_topGamesFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/nav_details_fragment" />
     </fragment>
     <fragment
-        android:id="@+id/detailsFragment"
+        android:id="@+id/nav_details_fragment"
         android:name="com.glogachev.twitchtopgames.view.topGames.details.DetailsFragment"
         android:label="Details"
         tools:layout="@layout/fragment_details">
@@ -22,4 +22,15 @@
             android:name="game_object"
             app:argType="com.glogachev.twitchtopgames.domain.model.GameDomain" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_about_fragment"
+        android:name="com.glogachev.twitchtopgames.view.about.AboutFragment"
+        android:label="About"
+        tools:layout="@layout/fragment_about" />
+    <action
+        android:id="@+id/action_global_nav_about"
+        app:destination="@id/nav_about_fragment" />
+    <action
+        android:id="@+id/action_global_nav_top_games"
+        app:destination="@id/nav_top_games_fragment" />
 </navigation>

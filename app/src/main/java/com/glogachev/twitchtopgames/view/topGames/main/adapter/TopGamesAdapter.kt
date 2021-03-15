@@ -1,4 +1,4 @@
-package com.glogachev.twitchtopgames.view.topGames.adapter
+package com.glogachev.twitchtopgames.view.topGames.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
