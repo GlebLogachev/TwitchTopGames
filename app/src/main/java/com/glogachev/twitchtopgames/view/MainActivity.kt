@@ -1,9 +1,12 @@
 package com.glogachev.twitchtopgames.view
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.widget.addTextChangedListener
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -11,6 +14,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.glogachev.twitchtopgames.R
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.alert_dialog.view.*
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         val navController = navContainer.navController
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
+        //setSupportActionBar(toolbar)
         val drawer: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
 
@@ -41,6 +47,31 @@ class MainActivity : AppCompatActivity() {
             clickNavDrawerItem(menuItem, navController, drawer)
             true
         }
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.toolbar_send_feedback -> {
+                    showFeedbackDialog()
+                }
+            }
+            true
+        }
+    }
+
+    private fun showFeedbackDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.alert_dialog, null)
+        val dialogBuilder = AlertDialog.Builder(this)
+            .setView(dialogView)
+        val alertDialog = dialogBuilder.create()
+        alertDialog.show()
+
+        dialogView.feedback_tie.addTextChangedListener {
+            dialogView.feedback_til.isCounterEnabled = it.toString().trim().isNotBlank()
+            Timber.d(it.toString())
+        }
+        dialogView.alert_cancel_btn.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
     }
 
     private fun clickNavDrawerItem(

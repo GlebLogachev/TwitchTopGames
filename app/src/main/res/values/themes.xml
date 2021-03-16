@@ -13,4 +13,10 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="MyRatingBar">
+        <item name="colorControlActivated">@color/purple_500</item>
+        <item name="android:stepSize">1</item>
+        <item name="android:rating">2</item>
+    </style>
 </resources>
