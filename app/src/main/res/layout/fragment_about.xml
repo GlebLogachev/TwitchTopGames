@@ -6,8 +6,13 @@
     tools:context=".view.about.AboutFragment">
 
     <TextView
+        android:id="@+id/about_tv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="about fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        tools:text="@string/about_text" />
 
 </FrameLayout>

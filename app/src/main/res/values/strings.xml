@@ -7,4 +7,9 @@
     <string name="network_problems">Ошибка загрузки</string>
     <string name="details_channels">channels: %1$s</string>
     <string name="details_viewers">viewers: %1$s</string>
+    <string name="about_text">
+        The "Twitch top games" appdisplays a list of the top 100 games in descending order of viewers
+    </string>
+    <string name="drawer_menu_top_games_tv">Top Games</string>
+    <string name="drawer_menu_about_tv">About</string>
 </resources>

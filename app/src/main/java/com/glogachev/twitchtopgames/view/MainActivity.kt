@@ -1,15 +1,16 @@
 package com.glogachev.twitchtopgames.view
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.glogachev.twitchtopgames.R
 import com.google.android.material.navigation.NavigationView
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,21 +37,26 @@ class MainActivity : AppCompatActivity() {
             configuration = appBarConfiguration
         )
         navView.setupWithNavController(navController = navController)
-        navView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.drawer_about -> {
-                    navController.navigate(R.id.action_global_nav_about)
-                    drawer.close()
-                }
-                R.id.drawer_feedback -> {
-                    navController.navigate(R.id.action_global_nav_top_games)
-                    drawer.close()
-                }
-                else -> {
-                    Timber.d("False" + " Test")
-                }
-            }
+        navView.setNavigationItemSelectedListener { menuItem ->
+            clickNavDrawerItem(menuItem, navController, drawer)
             true
+        }
+    }
+
+    private fun clickNavDrawerItem(
+        it: MenuItem,
+        navController: NavController,
+        drawer: DrawerLayout
+    ) {
+        when (it.itemId) {
+            R.id.drawer_about -> {
+                navController.navigate(R.id.action_global_nav_about)
+                drawer.close()
+            }
+            R.id.drawer_feedback -> {
+                navController.navigate(R.id.action_global_nav_top_games)
+                drawer.close()
+            }
         }
     }
 }
