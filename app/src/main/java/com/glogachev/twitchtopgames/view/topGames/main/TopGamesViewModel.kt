@@ -1,4 +1,4 @@
-package com.glogachev.twitchtopgames.view.topGames
+package com.glogachev.twitchtopgames.view.topGames.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

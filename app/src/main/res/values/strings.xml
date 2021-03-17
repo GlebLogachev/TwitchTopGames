@@ -1,11 +1,20 @@
 <resources>
     <string name="app_name">TwitchTopGames</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="game_name">Game name:</string>
     <string name="viewers">viewers:</string>
     <string name="channels">channels:</string>
     <string name="empty_list">Список пуст</string>
     <string name="network_problems">Ошибка загрузки</string>
-    <string name="details_viewers">viewers: %1$s</string>
     <string name="details_channels">channels: %1$s</string>
+    <string name="details_viewers">viewers: %1$s</string>
+    <string name="about_text">
+        The "Twitch top games" app displays a list of the top 100 games in descending order of viewers
+    </string>
+    <string name="drawer_menu_top_games_tv">Top Games</string>
+    <string name="drawer_menu_about_tv">About</string>
+    <string name="send_feedback">Send feedback</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="feedback">Feedback</string>
+    <string name="cancel">Cancel</string>
+    <string name="send">Send</string>
 </resources>
