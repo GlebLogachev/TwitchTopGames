@@ -5,25 +5,29 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.glogachev.twitchtopgames.App
+import com.glogachev.twitchtopgames.R
 import com.glogachev.twitchtopgames.databinding.FragmentTopGamesBinding
 import com.glogachev.twitchtopgames.domain.StoreResult
 import com.glogachev.twitchtopgames.domain.model.GameDomain
 import com.glogachev.twitchtopgames.view.topGames.main.adapter.OnItemClickListener
 import com.glogachev.twitchtopgames.view.topGames.main.adapter.TopGamesAdapter
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.alert_dialog.view.*
+import timber.log.Timber
 
 class TopGamesFragment : Fragment() {
+
     private var _binding: FragmentTopGamesBinding? = null
     private val binding: FragmentTopGamesBinding
         get() = _binding!!
@@ -33,6 +37,7 @@ class TopGamesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         val repository = App.appRepository
         val viewModelFactory = TopGamesViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(TopGamesViewModel::class.java)
@@ -75,6 +80,36 @@ class TopGamesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.toolbar_send_feedback -> {
+                showFeedbackDialog()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showFeedbackDialog() {
+        val dialogView = LayoutInflater.from(requireActivity()).inflate(R.layout.alert_dialog, null)
+        val dialogBuilder = AlertDialog.Builder(requireActivity())
+            .setView(dialogView)
+        val alertDialog = dialogBuilder.create()
+        alertDialog.show()
+
+        dialogView.feedback_tie.addTextChangedListener {
+            dialogView.feedback_til.isCounterEnabled = it.toString().trim().isNotBlank()
+            Timber.d(it.toString())
+        }
+        dialogView.alert_cancel_btn.setOnClickListener {
+            alertDialog.dismiss()
+        }
     }
 
     private fun rvItemClickListener(): OnItemClickListener {
