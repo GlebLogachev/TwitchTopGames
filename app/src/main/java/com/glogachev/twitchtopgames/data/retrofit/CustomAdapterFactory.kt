@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import java.lang.reflect.Type
 
-internal class RxAdapterFactory private constructor(
+class CustomAdapterFactory private constructor(
     private val rxAdapterFactory: CallAdapter.Factory
 ) : CallAdapter.Factory() {
 
@@ -19,7 +19,7 @@ internal class RxAdapterFactory private constructor(
         fun createWithScheduler(
             scheduler: Scheduler
         ): CallAdapter.Factory {
-            return RxAdapterFactory(
+            return CustomAdapterFactory(
                 rxAdapterFactory = RxJava2CallAdapterFactory.createWithScheduler(scheduler)
             )
         }

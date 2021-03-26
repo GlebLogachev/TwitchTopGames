@@ -11,20 +11,22 @@ import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.glogachev.twitchtopgames.App
 import com.glogachev.twitchtopgames.R
 import com.glogachev.twitchtopgames.databinding.FragmentTopGamesBinding
 import com.glogachev.twitchtopgames.domain.StoreResult
+import com.glogachev.twitchtopgames.domain.TopGamesRepository
 import com.glogachev.twitchtopgames.domain.model.GameDomain
 import com.glogachev.twitchtopgames.view.topGames.main.adapter.OnItemClickListener
 import com.glogachev.twitchtopgames.view.topGames.main.adapter.TopGamesAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.alert_dialog.view.*
 import timber.log.Timber
+import javax.inject.Inject
 
 class TopGamesFragment : Fragment() {
 
@@ -32,15 +34,19 @@ class TopGamesFragment : Fragment() {
     private val binding: FragmentTopGamesBinding
         get() = _binding!!
 
-    private lateinit var viewModel: TopGamesViewModel
+    @Inject
+    lateinit var repository: TopGamesRepository
+
+    private val viewModel: TopGamesViewModel by viewModels {
+        TopGamesViewModelFactory(repository = repository)
+    }
     private val topGamesAdapter: TopGamesAdapter = TopGamesAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        val repository = App.appRepository
-        val viewModelFactory = TopGamesViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(TopGamesViewModel::class.java)
+        App.component.inject(this)
+
     }
 
     override fun onCreateView(
@@ -53,10 +59,14 @@ class TopGamesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvTopGames.layoutManager = LinearLayoutManager(requireActivity())
-        binding.rvTopGames.adapter = topGamesAdapter
-        viewModel.getListOfGames()
+        binding.rvTopGames.apply {
+            layoutManager = LinearLayoutManager(requireActivity())
+            adapter = topGamesAdapter
+        }
+
         topGamesAdapter.setListener(rvItemClickListener())
+
+        viewModel.getListOfGames()
         viewModel.listGamesState.observe(
             viewLifecycleOwner,
             Observer<StoreResult<List<GameDomain>>> { result ->

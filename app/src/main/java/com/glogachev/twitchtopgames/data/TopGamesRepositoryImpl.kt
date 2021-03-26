@@ -7,10 +7,13 @@ import com.glogachev.twitchtopgames.data.retrofit.TopGamesApi
 import com.glogachev.twitchtopgames.domain.StoreResult
 import com.glogachev.twitchtopgames.domain.TopGamesRepository
 import com.glogachev.twitchtopgames.domain.model.GameDomain
-import com.glogachev.twitchtopgames.generics.toNetworkResult
+import com.glogachev.twitchtopgames.utils.toNetworkResult
 import io.reactivex.Single
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class TopGamesRepositoryImpl(
+@Singleton
+class TopGamesRepositoryImpl @Inject constructor(
     private val apiInterface: TopGamesApi,
     private val dbInterface: GamesDao
 ) : TopGamesRepository {

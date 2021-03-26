@@ -1,4 +1,4 @@
-package com.glogachev.twitchtopgames.generics
+package com.glogachev.twitchtopgames.utils
 
 import com.glogachev.twitchtopgames.data.mappers.toDomain
 import com.glogachev.twitchtopgames.data.retrofit.NetworkThrowable
