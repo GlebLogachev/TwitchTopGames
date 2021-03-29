@@ -19,7 +19,6 @@ import com.glogachev.twitchtopgames.App
 import com.glogachev.twitchtopgames.R
 import com.glogachev.twitchtopgames.databinding.FragmentTopGamesBinding
 import com.glogachev.twitchtopgames.domain.StoreResult
-import com.glogachev.twitchtopgames.domain.TopGamesRepository
 import com.glogachev.twitchtopgames.domain.model.GameDomain
 import com.glogachev.twitchtopgames.view.topGames.main.adapter.OnItemClickListener
 import com.glogachev.twitchtopgames.view.topGames.main.adapter.TopGamesAdapter
@@ -35,10 +34,10 @@ class TopGamesFragment : Fragment() {
         get() = _binding!!
 
     @Inject
-    lateinit var repository: TopGamesRepository
+    lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel: TopGamesViewModel by viewModels {
-        TopGamesViewModelFactory(repository = repository)
+    private val viewModel by viewModels<TopGamesViewModel> {
+        viewModelFactory
     }
     private val topGamesAdapter: TopGamesAdapter = TopGamesAdapter()
 
@@ -53,6 +52,7 @@ class TopGamesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentTopGamesBinding.inflate(inflater, container, false)
         return binding.root
     }

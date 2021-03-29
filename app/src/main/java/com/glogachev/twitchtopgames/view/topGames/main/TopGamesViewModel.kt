@@ -8,8 +8,11 @@ import com.glogachev.twitchtopgames.domain.TopGamesRepository
 import com.glogachev.twitchtopgames.domain.model.GameDomain
 import com.glogachev.twitchtopgames.utils.schedule
 import io.reactivex.disposables.Disposable
+import javax.inject.Inject
 
-class TopGamesViewModel(private val repository: TopGamesRepository) : ViewModel() {
+class TopGamesViewModel @Inject constructor(
+    private val repository: TopGamesRepository
+) : ViewModel() {
     private var disposable: Disposable? = null
 
     private var _listGamesState =
