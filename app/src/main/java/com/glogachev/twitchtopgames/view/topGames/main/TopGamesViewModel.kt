@@ -6,11 +6,13 @@ import androidx.lifecycle.ViewModel
 import com.glogachev.twitchtopgames.domain.StoreResult
 import com.glogachev.twitchtopgames.domain.TopGamesRepository
 import com.glogachev.twitchtopgames.domain.model.GameDomain
-import com.glogachev.twitchtopgames.generics.schedule
+import com.glogachev.twitchtopgames.utils.schedule
 import io.reactivex.disposables.Disposable
-import timber.log.Timber
+import javax.inject.Inject
 
-class TopGamesViewModel(private val repository: TopGamesRepository) : ViewModel() {
+class TopGamesViewModel @Inject constructor(
+    private val repository: TopGamesRepository
+) : ViewModel() {
     private var disposable: Disposable? = null
 
     private var _listGamesState =
@@ -23,7 +25,6 @@ class TopGamesViewModel(private val repository: TopGamesRepository) : ViewModel(
             .getFirstGamePage()
             .schedule()
             .subscribe { gamesNetworkResult ->
-                Timber.d(gamesNetworkResult.toString())
                 _listGamesState.value = gamesNetworkResult
             }
     }
